@@ -14,30 +14,32 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#fff}
 body{background:#fff;color:#111;font-family:Spectral,Georgia,"Times New Roman",serif;font-weight:400}
 main{width:100%;height:100dvh;display:flex;flex-direction:column}
 .top{padding:5vh 5vw 2.5vh;font-size:15px;line-height:1.45}
-.topline{display:flex;justify-content:space-between;align-items:baseline;gap:24px}
+.topline{display:block}
 .top a{color:inherit;text-decoration:none}
+.route{margin-top:10px}
 .top a:hover{opacity:.62}
 .credit{margin-top:24px;font-size:11.5px}
 .credit .y{color:#b00000}
 .film{flex:1;min-height:0;width:100%;display:flex;align-items:flex-end;justify-content:center;background:#fff}
-video{display:block;width:100%;height:auto;max-height:100%;object-fit:contain;object-position:center bottom;background:#fff;cursor:pointer;filter:brightness(1.08) contrast(1.08)}
+video{display:block;width:100%;height:auto;max-height:100%;object-fit:contain;object-position:center bottom;background:#fff;cursor:pointer;filter:none}
 @media(max-width:700px){
 .top{padding:4vh 20px 2.5vh;font-size:14px}
 .topline{display:block}
-.top .route{margin-top:8px}
+.top .route{margin-top:10px}
 .credit{margin-top:20px;font-size:11px}
 }
 @media(max-width:700px) and (orientation:landscape){
-.top{padding-top:2vh}
+.top{padding:2vh 20px 0}
 .film{align-items:flex-end}
-video{width:100%;height:auto;max-height:100%}
+video{width:100%;height:auto;max-height:100%;object-fit:cover;object-position:center bottom}
 }
 </style>
 </head>
 <body>
 <main>
 <div class="top">
-<div class="topline"><span>kyiv. dnipro. two unicyclers.</span><span class="route"><a href="https://abdymok.github.io/40/">enter</a></span></div>
+<div class="topline"><span>kyiv. dnipro. two unicyclers.</span></div>
+<div class="route"><a href="https://abdymok.github.io/40/">enter</a></div>
 <div class="credit">archived by abd<span class="y">y</span>mok</div>
 </div>
 <div class="film"><video autoplay muted loop playsinline preload="metadata" aria-label="Black and white video of two unicyclers beside the Dnipro in Kyiv"><source src="unicyclers-white-background-smooth.mp4" type="video/mp4"></video></div>
