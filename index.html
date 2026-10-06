@@ -20,12 +20,17 @@ main{width:100%;height:100dvh;display:flex;flex-direction:column}
 .credit{margin-top:24px;font-size:11.5px}
 .credit .y{color:#b00000}
 .film{flex:1;min-height:0;width:100%;display:flex;align-items:flex-end;justify-content:center;background:#fff}
-video{display:block;width:100%;height:100%;object-fit:contain;object-position:center bottom;background:#fff;cursor:pointer}
+video{display:block;width:100%;height:auto;max-height:100%;object-fit:contain;object-position:center bottom;background:#fff;cursor:pointer;filter:brightness(1.08) contrast(1.08)}
 @media(max-width:700px){
 .top{padding:4vh 20px 2.5vh;font-size:14px}
 .topline{display:block}
 .top .route{margin-top:8px}
 .credit{margin-top:20px;font-size:11px}
+}
+@media(max-width:700px) and (orientation:landscape){
+.top{padding-top:2vh}
+.film{align-items:flex-end}
+video{width:100%;height:auto;max-height:100%}
 }
 </style>
 </head>
