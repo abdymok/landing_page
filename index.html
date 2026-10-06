@@ -10,29 +10,32 @@
 <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box}
-html,body{margin:0;min-height:100%}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
 body{background:#fff;color:#111;font-family:Spectral,Georgia,"Times New Roman",serif;font-weight:400}
-main{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:6vh 5vw 7vh}
-.film{width:min(1100px,100%);margin:0 auto}
-video{display:block;width:100%;height:auto;background:#fff}
-.caption{width:min(1100px,100%);margin:18px auto 0;display:flex;justify-content:space-between;align-items:baseline;gap:24px;font-size:16px;line-height:1.4}
-.caption a{color:inherit;text-decoration:none}
-.caption a:hover{text-decoration:underline;text-underline-offset:3px}
-.credit{margin-top:42px;font-size:13px}
+main{width:100%;height:100vh;display:flex;flex-direction:column}
+.top{padding:5vh 5vw 2vh;font-size:16px;line-height:1.4}
+.topline{display:flex;justify-content:space-between;align-items:baseline;gap:24px}
+.top a{color:inherit;text-decoration:none}
+.top a:hover{text-decoration:underline;text-underline-offset:3px}
+.credit{margin-top:20px;font-size:13px}
 .credit .y{color:#b00000}
+.film{flex:1;min-height:0;width:100%;display:flex;align-items:flex-end;justify-content:center}
+video{display:block;width:100%;height:100%;object-fit:contain;object-position:center bottom;background:#fff}
 @media(max-width:700px){
-main{padding:5vh 20px 6vh}
-.caption{display:block;font-size:15px}
-.caption .route{margin-top:8px}
-.credit{margin-top:32px}
+.top{padding:4vh 20px 2vh;font-size:15px}
+.topline{display:block}
+.top .route{margin-top:8px}
+.credit{margin-top:16px}
 }
 </style>
 </head>
 <body>
 <main>
-<div class="film"><video autoplay muted loop playsinline preload="metadata" aria-label="Black and white video of two unicyclers beside the Dnipro in Kyiv"><source src="unicyclers-white-background-smooth.mp4" type="video/mp4"></video></div>
-<div class="caption"><span>kyiv. dnipro. two unicyclers.</span><span class="route"><a href="https://abdymok.github.io/40/">enter</a></span></div>
+<div class="top">
+<div class="topline"><span>kyiv. dnipro. two unicyclers.</span><span class="route"><a href="https://abdymok.github.io/40/">enter</a></span></div>
 <div class="credit">archived by abd<span class="y">y</span>mok</div>
+</div>
+<div class="film"><video autoplay muted loop playsinline preload="metadata" aria-label="Black and white video of two unicyclers beside the Dnipro in Kyiv"><source src="unicyclers-white-background-smooth.mp4" type="video/mp4"></video></div>
 </main>
 </body>
 </html>
