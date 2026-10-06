@@ -20,8 +20,8 @@ main{width:100%;height:100dvh;display:flex;flex-direction:column}
 .top a:hover{opacity:.62}
 .credit{margin-top:24px;font-size:11.5px}
 .credit .y{color:#b00000}
-.film{flex:1;min-height:0;width:100%;display:flex;align-items:flex-end;justify-content:center;background:#fff}
-video{display:block;width:100%;height:auto;max-height:100%;object-fit:contain;object-position:center bottom;background:#fff;cursor:pointer;filter:none}
+.film{flex:1;min-height:0;width:100%;display:flex;align-items:flex-end;justify-content:center;background:#fff;overflow:hidden}
+video{display:block;width:100%;height:auto;max-height:100%;object-fit:contain;object-position:center bottom;background:#fff;cursor:pointer;filter:none;border:0;outline:0}
 @media(max-width:700px){
 .top{padding:4vh 20px 2.5vh;font-size:14px}
 .topline{display:block}
@@ -31,7 +31,7 @@ video{display:block;width:100%;height:auto;max-height:100%;object-fit:contain;ob
 @media(max-width:700px) and (orientation:landscape){
 .top{padding:2vh 20px 0}
 .film{align-items:flex-end}
-video{width:100%;height:auto;max-height:100%;object-fit:cover;object-position:center bottom}
+video{width:100%;height:100%;max-height:none;object-fit:cover;object-position:center bottom}
 }
 </style>
 </head>
