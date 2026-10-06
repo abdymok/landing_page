@@ -20,7 +20,7 @@ main{width:100%;height:100dvh;display:flex;flex-direction:column}
 .credit{margin-top:24px;font-size:11.5px}
 .credit .y{color:#b00000}
 .film{flex:1;min-height:0;width:100%;display:flex;align-items:flex-end;justify-content:center;background:#fff}
-video{display:block;width:100%;height:100%;object-fit:contain;object-position:center bottom;background:#fff}
+video{display:block;width:100%;height:100%;object-fit:contain;object-position:center bottom;background:#fff;cursor:pointer}
 @media(max-width:700px){
 .top{padding:4vh 20px 2.5vh;font-size:14px}
 .topline{display:block}
@@ -37,5 +37,9 @@ video{display:block;width:100%;height:100%;object-fit:contain;object-position:ce
 </div>
 <div class="film"><video autoplay muted loop playsinline preload="metadata" aria-label="Black and white video of two unicyclers beside the Dnipro in Kyiv"><source src="unicyclers-white-background-smooth.mp4" type="video/mp4"></video></div>
 </main>
+<script>
+const film=document.querySelector('video');
+film.addEventListener('click',()=>film.paused?film.play():film.pause());
+</script>
 </body>
 </html>
