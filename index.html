@@ -16,17 +16,23 @@ main{width:100%;height:100dvh;display:flex;flex-direction:column}
 .top{padding:5vh 5vw 2.5vh;font-size:15px;line-height:1.45}
 .topline{display:block}
 .top a{color:inherit;text-decoration:none}
-.route{margin-top:10px}
 .top a:hover{opacity:.62}
-.credit{margin-top:24px;font-size:11.5px}
+.marks{display:flex;align-items:center;gap:14px;height:32px}
+.marks a{display:flex;align-items:center;justify-content:center;height:32px}
+.marks img{display:block;width:auto;height:32px;max-width:48px}
+.marks img.infrastructure{width:72px;max-width:72px;height:auto}
+.credit{margin-top:20px;font-size:11.5px}
 .credit .y{color:#b00000}
 .film{flex:1;min-height:0;width:100%;display:flex;align-items:flex-end;justify-content:center;background:#fff;overflow:hidden}
 video{display:block;width:100%;height:auto;max-height:100%;object-fit:contain;object-position:center bottom;background:#fff;cursor:pointer;filter:none;border:0;outline:0}
 @media(max-width:700px){
 .top{padding:4vh 20px 2.5vh;font-size:14px}
 .topline{display:block}
-.top .route{margin-top:10px}
-.credit{margin-top:20px;font-size:11px}
+.marks{height:28px;gap:12px}
+.marks a{height:28px}
+.marks img{height:28px;max-width:42px}
+.marks img.infrastructure{width:62px;max-width:62px}
+.credit{margin-top:18px;font-size:11px}
 }
 @media(max-width:700px) and (orientation:portrait){
 main{position:relative;display:block;width:100%;height:100dvh}
@@ -98,9 +104,12 @@ outline:0;
 <body>
 <main>
 <div class="top">
-<div class="topline"><span>kyiv. dnipro. two unicyclers.</span></div>
-<div class="route"><a href="https://abdymok.github.io/40/">enter</a></div>
-<div class="credit">archived by abd<span class="y">y</span>mok</div>
+<nav class="marks" aria-label="Archive">
+<a href="https://abdymok.github.io/mural/" title="mural"><img src="mural.svg" alt="mural"></a>
+<a href="https://abdymok.github.io/40/articles/critical-infrastructure-damage.html" title="infrastructure"><img class="infrastructure" src="infrastructure.svg" alt="infrastructure"></a>
+<a href="https://abdymok.github.io/40/articles/data-center-damage.html" title="data center"><img src="data-center.svg" alt="data center"></a>
+</nav>
+<div class="credit"><a href="https://abdymok.substack.com/" title="abdymok">archived by abd<span class="y">y</span>mok</a></div>
 </div>
 <div class="film"><video autoplay muted loop playsinline preload="metadata" aria-label="Black and white video of two unicyclers beside the Dnipro in Kyiv"><source src="unicyclers-fullbleed.mp4" type="video/mp4"></video></div>
 </main>
