@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>abdymok</title>
 <meta name="description" content="kyiv. dnipro. two unicyclers.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,7 +31,18 @@ video{display:block;width:100%;height:auto;max-height:100%;object-fit:contain;ob
 @media(max-width:700px) and (orientation:landscape){
 .top{padding:2vh 20px 0}
 .film{align-items:flex-end;margin-top:-1px}
-video{width:100vw;height:100%;max-height:none;object-fit:cover;object-position:center bottom;transform:scale(1.14);transform-origin:center bottom}
+video{
+position:relative;
+left:50%;
+margin-left:-50vw;
+width:100vw;
+height:100%;
+max-height:none;
+object-fit:cover;
+object-position:center bottom;
+transform:scale(1.35);
+transform-origin:center bottom;
+}
 }
 </style>
 </head>
