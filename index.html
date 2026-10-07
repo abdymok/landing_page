@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>abdymok</title>
 <meta name="description" content="kyiv. dnipro. two unicyclers.">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#ffffff">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=20261007">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S3ZLJ9QQWD"></script>
+<script>
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments)}
+gtag('js',new Date());
+gtag('config','G-S3ZLJ9QQWD');
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400&display=swap" rel="stylesheet">
@@ -37,67 +47,14 @@ video{display:block;width:100%;height:auto;max-height:100%;object-fit:contain;ob
 @media(max-width:700px) and (orientation:portrait){
 main{position:relative;display:block;width:100%;height:100dvh}
 .top{position:relative;z-index:2}
-.film{
-position:fixed;
-inset:0;
-width:100%;
-height:100dvh;
-margin:0;
-padding:0;
-display:block;
-overflow:hidden;
-background:#fff;
-z-index:1;
-}
-video{
-position:absolute;
-left:50%;
-bottom:0;
-display:block;
-width:auto;
-height:100%;
-max-width:none;
-max-height:none;
-margin:0;
-padding:0;
-object-fit:contain;
-object-position:center bottom;
-transform:translateX(-50%);
-border:0;
-outline:0;
-}
+.film{position:fixed;inset:0;width:100%;height:100dvh;margin:0;padding:0;display:block;overflow:hidden;background:#fff;z-index:1}
+video{position:absolute;left:50%;bottom:0;display:block;width:auto;height:100%;max-width:none;max-height:none;margin:0;padding:0;object-fit:contain;object-position:center bottom;transform:translateX(-50%);border:0;outline:0}
 }
 @media(max-width:1000px) and (orientation:landscape){
 main{position:relative;display:block;width:100%;height:100dvh}
 .top{position:relative;z-index:2;padding:2vh 20px 0}
-.film{
-position:fixed;
-inset:0;
-width:100%;
-height:100dvh;
-margin:0;
-padding:0;
-display:block;
-overflow:hidden;
-background:#fff;
-z-index:1;
-}
-video{
-position:absolute;
-inset:0;
-display:block;
-width:100%;
-height:100%;
-max-width:none;
-max-height:none;
-margin:0;
-padding:0;
-object-fit:fill;
-object-position:center center;
-transform:none;
-border:0;
-outline:0;
-}
+.film{position:fixed;inset:0;width:100%;height:100dvh;margin:0;padding:0;display:block;overflow:hidden;background:#fff;z-index:1}
+video{position:absolute;inset:0;display:block;width:100%;height:100%;max-width:none;max-height:none;margin:0;padding:0;object-fit:fill;object-position:center center;transform:none;border:0;outline:0}
 }
 </style>
 </head>
@@ -116,32 +73,21 @@ outline:0;
 <script>
 const film=document.querySelector('video');
 const portraitStart=8.5;
-
-function portraitMode(){
-  return window.matchMedia('(max-width:700px) and (orientation:portrait)').matches;
-}
-
+function portraitMode(){return window.matchMedia('(max-width:700px) and (orientation:portrait)').matches;}
 function setPlayback(){
   if(portraitMode()){
     film.loop=false;
-    if(film.currentTime < portraitStart || film.currentTime >= film.duration - 0.1){
-      film.currentTime=portraitStart;
-    }
+    if(film.currentTime < portraitStart || film.currentTime >= film.duration - 0.1){film.currentTime=portraitStart;}
     film.play().catch(()=>{});
-  }else{
-    film.loop=true;
-  }
+  }else{film.loop=true;}
 }
-
 film.addEventListener('loadedmetadata',setPlayback);
 film.addEventListener('timeupdate',()=>{
-  if(portraitMode() && film.duration && film.currentTime >= film.duration - 0.05){
-    film.currentTime=portraitStart;
-    film.play().catch(()=>{});
-  }
+  if(portraitMode() && film.duration && film.currentTime >= film.duration - 0.05){film.currentTime=portraitStart;film.play().catch(()=>{});}
 });
 film.addEventListener('click',()=>film.paused?film.play():film.pause());
 window.addEventListener('resize',setPlayback);
 </script>
+<script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("/sw.js"))}</script>
 </body>
 </html>
