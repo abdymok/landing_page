@@ -111,11 +111,37 @@ outline:0;
 </nav>
 <div class="credit"><a href="https://abdymok.substack.com/" title="abdymok">archived by abd<span class="y">y</span>mok</a></div>
 </div>
-<div class="film"><video autoplay muted loop playsinline preload="metadata" aria-label="Black and white video of two unicyclers beside the Dnipro in Kyiv"><source src="unicyclers-fullbleed.mp4" type="video/mp4"></video></div>
+<div class="film"><video autoplay muted playsinline preload="metadata" aria-label="Black and white video of two unicyclers beside the Dnipro in Kyiv"><source src="unicyclers-fullbleed.mp4" type="video/mp4"></video></div>
 </main>
 <script>
 const film=document.querySelector('video');
+const portraitStart=2.5;
+
+function portraitMode(){
+  return window.matchMedia('(max-width:700px) and (orientation:portrait)').matches;
+}
+
+function setPlayback(){
+  if(portraitMode()){
+    film.loop=false;
+    if(film.currentTime < portraitStart || film.currentTime >= film.duration - 0.1){
+      film.currentTime=portraitStart;
+    }
+    film.play().catch(()=>{});
+  }else{
+    film.loop=true;
+  }
+}
+
+film.addEventListener('loadedmetadata',setPlayback);
+film.addEventListener('timeupdate',()=>{
+  if(portraitMode() && film.duration && film.currentTime >= film.duration - 0.05){
+    film.currentTime=portraitStart;
+    film.play().catch(()=>{});
+  }
+});
 film.addEventListener('click',()=>film.paused?film.play():film.pause());
+window.addEventListener('resize',setPlayback);
 </script>
 </body>
 </html>
