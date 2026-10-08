@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>abdymok</title>
 <meta name="description" content="kyiv. dnipro. two unicyclers.">
-<link rel="manifest" href="/manifest.webmanifest">
+<link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#ffffff">
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=20261007">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=20261008">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-S3ZLJ9QQWD"></script>
 <script>
 window.dataLayer=window.dataLayer||[];
@@ -90,6 +90,6 @@ film.addEventListener('timeupdate',()=>{
 film.addEventListener('click',()=>film.paused?film.play():film.pause());
 window.addEventListener('resize',setPlayback);
 </script>
-<script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("/sw.js"))}</script>
+<script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(r=>r.update()).catch(()=>{}))}</script>
 </body>
 </html>
