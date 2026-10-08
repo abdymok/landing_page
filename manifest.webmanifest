@@ -1,0 +1,12 @@
+{
+  "name":"abdymok",
+  "short_name":"abdymok",
+  "start_url":"/landing_page/",
+  "scope":"/landing_page/",
+  "display":"standalone",
+  "background_color":"#ffffff",
+  "theme_color":"#ffffff",
+  "icons":[
+    {"src":"apple-touch-icon.png?v=20261008","sizes":"180x180","type":"image/png","purpose":"any maskable"}
+  ]
+}
