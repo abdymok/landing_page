@@ -84,35 +84,70 @@ video{position:absolute;inset:0;display:block;width:100%;height:100%;max-width:n
 </nav>
 <div class="credit"><a href="https://abdymok.substack.com/" title="abdymok"><em>powered by abd<span class="y">y</span>mok</em></a></div>
 </div>
-<div class="film"><video autoplay muted playsinline preload="metadata" aria-label="Black and white video of two unicyclers beside the Dnipro in Kyiv"><source src="unicyclers-fullbleed.mp4" type="video/mp4"></video></div>
+<div class="film"><video autoplay muted playsinline preload="auto" webkit-playsinline aria-label="Black and white video of two unicyclers beside the Dnipro in Kyiv"><source src="unicyclers-fullbleed.mp4" type="video/mp4"></video></div>
 </main>
 <script>
 const film=document.querySelector('video');
 const portraitStart=8.5;
+let portraitSeekDone=false;
+let portraitSeekPending=false;
 function portraitMode(){return window.matchMedia('(max-width:700px) and (orientation:portrait)').matches;}
+function tryPlay(){
+  const result=film.play();
+  if(result && typeof result.catch==='function') result.catch(()=>{});
+}
 function setPlayback(){
   if(!film) return;
   if(portraitMode()){
     film.loop=false;
-    if(film.readyState >= 1 && Number.isFinite(film.duration) && film.duration > portraitStart &&
+    if(film.readyState >= 2 && film.duration > portraitStart &&
+       !portraitSeekDone && !portraitSeekPending &&
        (film.currentTime < portraitStart || film.currentTime >= film.duration - 0.1)){
-      film.currentTime=portraitStart;
+      portraitSeekPending=true;
+      try{
+        film.currentTime=portraitStart;
+      }catch(error){
+        portraitSeekPending=false;
+        tryPlay();
+      }
+      return;
     }
   }else{
     film.loop=true;
   }
-  film.play().catch(()=>{});
+  tryPlay();
 }
 film.addEventListener('loadedmetadata',setPlayback);
 film.addEventListener('loadeddata',setPlayback);
 film.addEventListener('canplay',setPlayback);
+film.addEventListener('seeked',()=>{
+  portraitSeekPending=false;
+  portraitSeekDone=true;
+  tryPlay();
+});
+film.addEventListener('error',()=>{
+  portraitSeekPending=false;
+  tryPlay();
+});
 film.addEventListener('timeupdate',()=>{
   if(portraitMode() && film.duration && film.currentTime >= film.duration - 0.05){
+    portraitSeekPending=true;
     film.currentTime=portraitStart;
-    film.play().catch(()=>{});
   }
 });
-film.addEventListener('click',()=>film.paused?film.play():film.pause());
+film.addEventListener('click',()=>film.paused?tryPlay():film.pause());
+document.querySelector('a.home').addEventListener('click',event=>{
+  if(location.pathname==='/' || location.pathname==='/index.html'){
+    event.preventDefault();
+    if(portraitMode() && film.duration && film.currentTime >= film.duration - 0.1){
+      portraitSeekDone=false;
+      portraitSeekPending=false;
+      film.currentTime=portraitStart;
+    }
+    setPlayback();
+    tryPlay();
+  }
+});
 window.addEventListener('resize',setPlayback);
 window.addEventListener('pageshow',setPlayback);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden) setPlayback();});
