@@ -91,18 +91,32 @@ const film=document.querySelector('video');
 const portraitStart=8.5;
 function portraitMode(){return window.matchMedia('(max-width:700px) and (orientation:portrait)').matches;}
 function setPlayback(){
+  if(!film) return;
   if(portraitMode()){
     film.loop=false;
-    if(film.currentTime < portraitStart || film.currentTime >= film.duration - 0.1){film.currentTime=portraitStart;}
-    film.play().catch(()=>{});
-  }else{film.loop=true;}
+    if(film.readyState >= 1 && Number.isFinite(film.duration) && film.duration > portraitStart &&
+       (film.currentTime < portraitStart || film.currentTime >= film.duration - 0.1)){
+      film.currentTime=portraitStart;
+    }
+  }else{
+    film.loop=true;
+  }
+  film.play().catch(()=>{});
 }
 film.addEventListener('loadedmetadata',setPlayback);
+film.addEventListener('loadeddata',setPlayback);
+film.addEventListener('canplay',setPlayback);
 film.addEventListener('timeupdate',()=>{
-  if(portraitMode() && film.duration && film.currentTime >= film.duration - 0.05){film.currentTime=portraitStart;film.play().catch(()=>{});}
+  if(portraitMode() && film.duration && film.currentTime >= film.duration - 0.05){
+    film.currentTime=portraitStart;
+    film.play().catch(()=>{});
+  }
 });
 film.addEventListener('click',()=>film.paused?film.play():film.pause());
 window.addEventListener('resize',setPlayback);
+window.addEventListener('pageshow',setPlayback);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden) setPlayback();});
+setPlayback();
 </script>
 <script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(r=>r.update()).catch(()=>{}))}</script>
 </body>
