@@ -104,12 +104,15 @@ function setPlayback(){
        !portraitSeekDone && !portraitSeekPending &&
        (film.currentTime < portraitStart || film.currentTime >= film.duration - 0.1)){
       portraitSeekPending=true;
+      // Start muted playback before seeking; iOS Safari can stall if the
+      // first play() call happens only after the initial seek completes.
+      tryPlay();
       try{
         film.currentTime=portraitStart;
       }catch(error){
         portraitSeekPending=false;
-        tryPlay();
       }
+      tryPlay();
       return;
     }
   }else{
