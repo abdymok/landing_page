@@ -147,6 +147,28 @@ film.addEventListener('loadeddata',()=>window.setTimeout(setPlayback,250));
 film.addEventListener('canplay',()=>window.setTimeout(setPlayback,750));
 setPlayback();
 </script>
+<div id="video-debug" hidden style="position:fixed;left:8px;right:8px;bottom:8px;z-index:99;background:#fff;color:#111;border:1px solid #888;padding:8px;font:12px/1.4 monospace;white-space:pre-wrap"></div>
+<script>
+(function(){
+ if(!new URLSearchParams(location.search).has('debug')) return;
+ const panel=document.getElementById('video-debug'); panel.hidden=false;
+ const v=document.querySelector('video');
+ function report(extra){
+   panel.textContent='VIDEO DIAGNOSTIC\\n'+
+   'readyState='+v.readyState+' networkState='+v.networkState+'\\n'+
+   'paused='+v.paused+' currentTime='+Number(v.currentTime||0).toFixed(2)+' duration='+String(v.duration)+'\\n'+
+   'videoWidth='+v.videoWidth+' videoHeight='+v.videoHeight+'\\n'+
+   'source='+v.currentSrc+'\\n'+
+   'error='+(v.error ? v.error.code+': '+v.error.message : 'none')+'\\n'+
+   'play='+ (extra||'no result');
+ }
+ ['loadstart','loadedmetadata','loadeddata','canplay','playing','pause','waiting','stalled','error','seeked','timeupdate'].forEach(e=>v.addEventListener(e,()=>report('event: '+e)));
+ const oldPlay=v.play.bind(v);
+ v.play=function(){const p=oldPlay(); if(p&&p.then)p.then(()=>report('play resolved')).catch(e=>report('play rejected: '+e.name+' '+e.message)); else report('play returned no promise'); return p;};
+ report('diagnostic armed');
+ setTimeout(()=>{report('after 2 seconds');},2000);
+})();
+</script>
 <script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(r=>r.update()).catch(()=>{}))}</script>
 </body>
 </html>
