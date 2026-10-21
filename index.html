@@ -88,9 +88,6 @@ video{position:absolute;inset:0;display:block;width:100%;height:100%;max-width:n
 </main>
 <script>
 const film=document.querySelector('video');
-const portraitStart=8.5;
-let portraitSeekDone=false;
-let portraitSeekPending=false;
 function portraitMode(){return window.matchMedia('(max-width:700px) and (orientation:portrait)').matches;}
 function tryPlay(){
   const result=film.play();
@@ -98,46 +95,15 @@ function tryPlay(){
 }
 function setPlayback(){
   if(!film) return;
-  if(portraitMode()){
-    film.loop=false;
-    if(film.readyState >= 2 && film.duration > portraitStart &&
-       !portraitSeekDone && !portraitSeekPending &&
-       (film.currentTime < portraitStart || film.currentTime >= film.duration - 0.1)){
-      portraitSeekPending=true;
-      // Start muted playback before seeking; iOS Safari can stall if the
-      // first play() call happens only after the initial seek completes.
-      tryPlay();
-      try{
-        film.currentTime=portraitStart;
-      }catch(error){
-        portraitSeekPending=false;
-      }
-      tryPlay();
-      return;
-    }
-  }else{
-    film.loop=true;
-  }
+  // Do not seek on portrait load: allow Safari to start decoding and display
+  // the first frame naturally instead of stalling on an initial seek.
+  film.loop=true;
   tryPlay();
 }
 film.addEventListener('loadedmetadata',setPlayback);
 film.addEventListener('loadeddata',setPlayback);
 film.addEventListener('canplay',setPlayback);
-film.addEventListener('seeked',()=>{
-  portraitSeekPending=false;
-  portraitSeekDone=true;
-  tryPlay();
-});
-film.addEventListener('error',()=>{
-  portraitSeekPending=false;
-  tryPlay();
-});
-film.addEventListener('timeupdate',()=>{
-  if(portraitMode() && film.duration && film.currentTime >= film.duration - 0.05){
-    portraitSeekPending=true;
-    film.currentTime=portraitStart;
-  }
-});
+film.addEventListener('error',setPlayback);
 film.addEventListener('click',()=>film.paused?tryPlay():film.pause());
 // Home remains a normal link, including when already on the landing page.
 window.addEventListener('resize',setPlayback);
